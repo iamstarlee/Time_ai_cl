@@ -128,7 +128,7 @@ class Model(nn.Module):
 
             if args.task in ['status','type']:
                 labels=labels.long()
-                loss = self.criterion(label_pre, labels)
+                loss = self.criterion(label_pre.cuda(), labels.cuda())
 
             else:
                 b,t,f=labels.shape
@@ -147,7 +147,7 @@ class Model(nn.Module):
         # return label_pre
 
     def run_on_batch(self, data,img, labels, optimizer):
-        ret = self(data,img, labels)
+        ret = self(data.cuda(),img.cuda(), labels.cuda())
         if optimizer is not None:
             optimizer.zero_grad()
             ret["loss"].backward()
