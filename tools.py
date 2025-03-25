@@ -53,7 +53,44 @@ def half_split():
 
     print("数据已成功提取并保存")
 
+def plot_loss():
+    import matplotlib.pyplot as plt
+    import os
+
+    # 读取保存的损失数据
+    with open('logs/output_file_100.txt', 'r') as f:
+        lines = f.readlines()
+
+    # 将损失数据转换为浮点数
+    losses = [float(line.strip()) for line in lines]
+
+    # 绘制损失曲线
+    plt.plot(losses)
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.title('Training Loss')
+    plt.savefig(os.path.join("epoch_loss_100.png"))
+
+def extract_last_coloumn():
+    # 打开txt文件并读取内容
+    with open('logs/epoch_loss_100.txt', 'r') as file:
+        lines = file.readlines()
+
+    # 提取每行的最后一列
+    last_column = []
+    for line in lines:
+        # 去掉行末的换行符，并按空格或制表符分隔列
+        columns = line.strip().split()  # 如果列是由空格或制表符分隔
+        if columns:
+            last_column.append(columns[-1])  # 获取每行的最后一列
+
+    # 将最后一列保存到新的txt文件
+    with open('logs/output_file_100.txt', 'w') as output_file:
+        for item in last_column:
+            output_file.write(item + '\n')  # 每个元素写入新文件，并换行
+
+
 
 if __name__ == '__main__':
-    half_split()
+    plot_loss()
     
