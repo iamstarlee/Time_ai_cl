@@ -206,21 +206,22 @@ def read_data_type(path):
             images.append('./data/images/{}.jpg'.format(i))
             t4 += 1
 
-        # elif data_y[n] == '受潮故障':
-        #
-        #     for l in range(68):
-        #         X.append(data_x[n:n + 10, :])
-        #         label.append(4)
-        #         images.append('./data/images/{}.jpg'.format(i))
-        #         t5 += 1
-        #
-        #
-        # elif data_y[n] == '悬浮放电':
-        #     for l in range(2):
-        #         X.append(data_x[n:n + 10, :])
-        #         label.append(5)
-        #         images.append('./data/images/{}.jpg'.format(i))
-        #         t6 += 1
+        elif data_y[n] == '受潮故障':
+        
+            for l in range(68):
+                X.append(data_x[n:n + 10, :])
+                label.append(4)
+                images.append('./data/images/{}.jpg'.format(i))
+                t5 += 1
+        
+        
+        elif data_y[n] == '悬浮放电':
+            for l in range(2):
+                X.append(data_x[n:n + 10, :])
+                label.append(5)
+                images.append('./data/images/{}.jpg'.format(i))
+                t6 += 1
+        
         # label.append(fl)
         # images.append('./data/images/{}.jpg'.format(i))
         n = n + 10

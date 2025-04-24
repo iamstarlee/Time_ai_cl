@@ -9,6 +9,7 @@ from util.config import args
 from torchvision import models
 
 from model.VGG import vgg16
+
 class PositionalEncoding(nn.Module):
 
     def __init__(self, d_model, max_len=5000):
@@ -96,7 +97,7 @@ class Model(nn.Module):
 
 
 
-        src1 = self.embedding(src)
+        src1 = self.embedding(src.cuda(args.gpu))
         src1=src1.reshape(src.shape[1],src.shape[0],-1)
 
         src2 = self.pos_encoder(src1)
@@ -147,7 +148,7 @@ class Model(nn.Module):
         # return label_pre
 
     def run_on_batch(self, data,img, labels, optimizer):
-        ret = self(data.cuda(),img.cuda(), labels.cuda())
+        ret = self(data.cuda(args.gpu),img.cuda(args.gpu), labels.cuda(args.gpu))
         if optimizer is not None:
             optimizer.zero_grad()
             ret["loss"].backward()
